@@ -27423,11 +27423,11 @@ SDValue DAGCombiner::visitINSERT_SUBVECTOR(SDNode *N) {
 
   // If inserting an UNDEF, just return the original vector (unless it makes the
   // result more poisonous).
-  if (N1.isUndef()){
+  if (N1.isUndef()) {
     if (VT.isFixedLengthVector()) {
       unsigned SubVecNumElts = N1.getValueType().getVectorNumElements();
-      APInt EltMask = APInt::getBitsSet(VT.getVectorNumElements(),
-                                        InsIdx, InsIdx + SubVecNumElts);
+      APInt EltMask = APInt::getBitsSet(VT.getVectorNumElements(), InsIdx,
+                                        InsIdx + SubVecNumElts);
       if (DAG.isGuaranteedNotToBePoison(N0, EltMask))
         return N0;
     } else if (DAG.isGuaranteedNotToBePoison(N0))
@@ -27448,8 +27448,8 @@ SDValue DAGCombiner::visitINSERT_SUBVECTOR(SDNode *N) {
         return N1.getOperand(0);
       if (VT.isFixedLengthVector() && N1VT.isFixedLengthVector()) {
         unsigned SubVecNumElts = N1VT.getVectorNumElements();
-        APInt EltMask = APInt::getBitsSet(VT.getVectorNumElements(),
-                                          InsIdx, InsIdx + SubVecNumElts);
+        APInt EltMask = APInt::getBitsSet(VT.getVectorNumElements(), InsIdx,
+                                          InsIdx + SubVecNumElts);
         if (DAG.isGuaranteedNotToBePoison(N1.getOperand(0), ~EltMask))
           return N1.getOperand(0);
       } else if (DAG.isGuaranteedNotToBePoison(N1.getOperand(0)))

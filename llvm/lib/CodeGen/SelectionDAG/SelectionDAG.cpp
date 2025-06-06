@@ -7931,8 +7931,8 @@ SDValue SelectionDAG::getNode(unsigned Opcode, const SDLoc &DL, EVT VT,
     // But not if skipping the insert could make the result more poisonous.
     if (N2.isUndef()) {
       if (N3C && VT.isFixedLengthVector()) {
-        APInt EltMask = APInt::getOneBitSet(VT.getVectorNumElements(),
-                                            N3C->getZExtValue());
+        APInt EltMask =
+            APInt::getOneBitSet(VT.getVectorNumElements(), N3C->getZExtValue());
         if (isGuaranteedNotToBePoison(N1, EltMask))
           return N1;
       } else if (isGuaranteedNotToBePoison(N1))
@@ -7985,8 +7985,8 @@ SDValue SelectionDAG::getNode(unsigned Opcode, const SDLoc &DL, EVT VT,
       if (VT.isFixedLengthVector() && N2VT.isFixedLengthVector()) {
         unsigned LoBit = N3->getAsZExtVal();
         unsigned HiBit = LoBit + N2VT.getVectorNumElements();
-        APInt EltMask = APInt::getBitsSet(VT.getVectorNumElements(),
-                                          LoBit, HiBit);
+        APInt EltMask =
+            APInt::getBitsSet(VT.getVectorNumElements(), LoBit, HiBit);
         if (isGuaranteedNotToBePoison(N2.getOperand(0), ~EltMask))
           return N2.getOperand(0);
       } else if (isGuaranteedNotToBePoison(N2.getOperand(0)))
@@ -7999,8 +7999,8 @@ SDValue SelectionDAG::getNode(unsigned Opcode, const SDLoc &DL, EVT VT,
       if (VT.isFixedLengthVector()) {
         unsigned LoBit = N3->getAsZExtVal();
         unsigned HiBit = LoBit + N2VT.getVectorNumElements();
-        APInt EltMask = APInt::getBitsSet(VT.getVectorNumElements(),
-                                          LoBit, HiBit);
+        APInt EltMask =
+            APInt::getBitsSet(VT.getVectorNumElements(), LoBit, HiBit);
         if (isGuaranteedNotToBePoison(N1, EltMask))
           return N1;
       } else if (isGuaranteedNotToBePoison(N1))
