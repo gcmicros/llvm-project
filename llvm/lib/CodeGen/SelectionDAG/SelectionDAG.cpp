@@ -12516,7 +12516,7 @@ SDValue llvm::peekThroughTruncates(SDValue V) {
   return V;
 }
 
-SDValue llvm::peekThroughInsertVectorElt(SDValue V, APInt DemandedElts) {
+SDValue llvm::peekThroughInsertVectorElt(SDValue V, const APInt &DemandedElts) {
   while (V.getOpcode() == ISD::INSERT_VECTOR_ELT) {
     SDValue InVec = V.getOperand(0);
     SDValue EltNo = V.getOperand(2);

@@ -1882,9 +1882,10 @@ LLVM_ABI SDValue peekThroughExtractSubvectors(SDValue V);
 LLVM_ABI SDValue peekThroughTruncates(SDValue V);
 
 /// Recursively peek through INSERT_VECTOR_ELT nodes, returning the source
-/// vector operand of \p V, as long as \p V is an does INSERT_VECTOR_ELT
-/// operation that do not insert into any of the demanded vector elts.
-LLVM_ABI SDValue peekThroughInsertVectorElt(SDValue V, APInt DemandedElts);
+/// vector operand of \p V, as long as \p V is an INSERT_VECTOR_ELT operation
+/// that do not insert into any of the demanded vector elts.
+LLVM_ABI SDValue peekThroughInsertVectorElt(SDValue V,
+                                            const APInt &DemandedElts);
 
 /// Returns true if \p V is a bitwise not operation. Assumes that an all ones
 /// constant is canonicalized to be operand 1.
